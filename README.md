@@ -1,7 +1,7 @@
 # chutya_rating
 Uses CV and ML to rate you on a scale of - Kati Chutya lagte rahe ho -> to -> Arey boss?
 
-## Basic Theory
+## Theory
 Well, as you might have noticed this, project is for fun -  like most of my projects, but there are quite buzz words involved in making it.
 I will use OpenCV, Numpy and scikit-learn to develop a completely automated pipeline that takes a photograph of a person’s face, and rates the photo on how chutya you are.
 
@@ -19,6 +19,11 @@ Now that we have a way to extract the features, we require a dataset of images. 
 
 I need your help in creating a dataset, all I need are a few names of people who you think **"SHAKAL SEY CHUTYA LAGTAE HAI"**
 
+^^ Old
+\
+Create your own dataset of humans and place then in `pics` folder labelled 1 -  n.jpg
+
+
 ### ML bit
 Now this is where the things get interestin. We will be using scikit-learn for this.
 
@@ -34,3 +39,24 @@ Now this is where the things get interestin. We will be using scikit-learn for t
 `pip install -U scikit-learn`
 
 Once that is done  --> in short, what we want to do here is calculate ratios between all possible pairs of points from our facial landmarks and then use that to train our machine.
+
+To train our model, we will be using PCA -> since our feature set is large (hanged my text editor for a simple search) Using PCA in scikit-learn is pretty simple, and the following is all you need:
+
+```from sklearn import decomposition
+pca = decomposition.PCA(n_components=20)
+pca.fit(features_train)
+features_train = pca.transform(features_train)
+features_test = pca.transform(features_test)
+```
+
+In the above code, n_components is a hyper-parameter, and it’s value can be chosen by testing the performance of the model on a validation set (or cross-validation).
+
+I will be using linear regression to train my model you are free to use SVM, Random forest anything.
+To create a linear regression model you can use the following code
+
+```
+regr = linear_model.LinearRegression()
+regr.fit(features_train, ratings_train)
+ratings_predict = regr.predict(features_test)
+```
+The above code will fit a linear regressor on the traininng data, and then store the predictions.
