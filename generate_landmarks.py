@@ -4,8 +4,8 @@ import dlib
 import glob
 from skimage import io
 
-predictor_path = "../data/shape_predictor_68_face_landmarks.dat"
-faces_folder_path = "../data/pics"
+predictor_path = "data/shape_predictor_68_face_landmarks.dat"
+faces_folder_path = "data/pics"
 
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(predictor_path)
@@ -27,6 +27,6 @@ for f in my_glob:
         file_write = ""
         for i in range(0, 68):
             file_write += str(shape.part(i).x) + ", " + str(shape.part(i).y) + ", "
-        with open("../data/landmarks.txt", "a") as f:
+        with open("data/landmarks.txt", "a") as f:
             f.write(file_write)
             f.write("\n")
